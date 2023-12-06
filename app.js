@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import categoryRoutes from './routes/CategoryRoutes.js';
 import userRoutes from './routes/UserRoutes.js';
+import questionRoutes from './routes/QuestionRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Set up routes
 app.use('/categories', categoryRoutes);
 app.use('/users', userRoutes);
+app.use('/questions', questionRoutes);
 
 //configure mongoose
 mongoose.connect(
