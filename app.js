@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import categoryRoutes from './routes/CategoryRoutes.js';
 import userRoutes from './routes/UserRoutes.js';
 import questionRoutes from './routes/QuestionRoutes.js';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,7 @@ const port = process.env.PORT || 5000;
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Set up routes
 app.use('/categories', categoryRoutes);

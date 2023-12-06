@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
 router.get('/category/:categoryId', async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
-
     // Query questions by category ID
     const questions = await Question.find({ category: categoryId });
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -67,6 +68,28 @@ router.delete('/:id', async (req, res) => {
     res.json(deletedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// login route
+router.post('/login', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    if (user.password !== req.body.password) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    const token = jwt.sign({ email: user.email }, 'secret-key');
+
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
